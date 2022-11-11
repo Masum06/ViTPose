@@ -2,6 +2,7 @@
     for clarification: 
         The lowest number label is the base of the finger
         The highest number label is the tip of the finger
+        matches proper ordrer of the data_checker process (see data_checker.py, getKeypoints())
 '''
 
 dataset_info = dict(

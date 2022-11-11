@@ -3,6 +3,10 @@
         The lowest number label is the base of the finger
         The highest number label is the tip of the finger
         matches proper ordrer of the data_checker process (see data_checker.py, getKeypoints())
+
+    JSON format:
+        X,Y, 2
+        Wrist, IndexA-D, MiddleA-D, RingA-D, PinkyA-D, ThumbA-D
 '''
 
 dataset_info = dict(
@@ -18,140 +22,140 @@ dataset_info = dict(
             swap=''),
         1:
         dict(
-            name='thumb1', 
+            name='indexA', 
             id=1, 
             color=[255, 128, 0], 
             type='', 
             swap=''),
         2:
         dict(
-            name='thumb2', 
+            name='indexB', 
             id=2, 
             color=[255, 128, 0],
             type='',
             swap=''),
         3:
         dict(
-            name='thumb3',
+            name='indexC',
             id=3,
             color=[255, 128, 0],
             type='',
             swap=''),
         4:
         dict(
-            name='thumb4',
+            name='indexD',
             id=4,
             color=[255, 128, 0],
             type='', 
             swap=''),
         5:
         dict(
-            name='index1',
+            name='middleA',
             id=5,
             color=[255, 153, 255], 
             type='', 
             swap=''),
         6:
         dict(
-            name='index2',
+            name='middleB',
             id=6,
             color=[255, 153, 255],
             type='',
             swap=''),
         7:
         dict(
-            name='index3',
+            name='middleC',
             id=7,
             color=[255, 153, 255],
             type='',
             swap=''),
         8:
         dict(
-            name='index4',
+            name='middleD',
             id=8,
             color=[255, 153, 255],
             type='',
             swap=''),
         9:
         dict(
-            name='middle_finger1',
+            name='ringA',
             id=9,
             color=[102, 178, 255],
             type='',
             swap=''),
         10:
         dict(
-            name='middle_finger2',
+            name='ringB',
             id=10,
             color=[102, 178, 255],
             type='',
             swap=''),
         11:
         dict(
-            name='middle_finger3',
+            name='ringC',
             id=11,
             color=[102, 178, 255],
             type='',
             swap=''),
         12:
         dict(
-            name='middle_finger4',
+            name='ringD',
             id=12,
             color=[102, 178, 255],
             type='',
             swap=''),
         13:
         dict(
-            name='ring_finger1',
+            name='pinkyA',
             id=13,
             color=[255, 51, 51],
             type='',
             swap=''),
         14:
         dict(
-            name='ring_finger2', 
+            name='pinkyB', 
             id=14, 
             color=[255, 51, 51], 
             type='', 
             swap=''),
         15:
         dict(
-            name='ring_finger3', 
+            name='pinkyC', 
             id=15, 
             color=[255, 51, 51], 
             type='', 
             swap=''),
         16:
         dict(
-            name='ring_finger4', 
+            name='pinkyD', 
             id=16, 
             color=[255, 51, 51], 
             type='', 
             swap=''),
         17:
         dict(
-            name='pinky_finger1', 
+            name='thumbA', 
             id=17, 
             color=[0, 255, 0], 
             type='', 
             swap=''),
         18:
         dict(
-            name='pinky_finger2', 
+            name='thumbB', 
             id=18, 
             color=[0, 255, 0], 
             type='', 
             swap=''),
         19:
         dict(
-            name='pinky_finger3', 
+            name='thumbC', 
             id=19, 
             color=[0, 255, 0], 
             type='', 
             swap=''),
         20:
         dict(
-            name='pinky_finger4', 
+            name='thumbD', 
             id=20, 
             color=[0, 255, 0], 
             type='', 

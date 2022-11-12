@@ -1,0 +1,13 @@
+Running an example: (this works perfectly)
+usage: top_down_img_demo.py [-h] [--img-root IMG_ROOT] [--json-file JSON_FILE] [--show] [--out-img-root OUT_IMG_ROOT] [--device DEVICE] [--kpt-thr KPT_THR] [--radius RADIUS] [--thickness THICKNESS] pose_config pose_checkpoint
+top_down_img_demo.py: error: the following arguments are required: pose_config, pose_checkpoint
+(vitpose_test1) PS E:\Hi5-data> & C:/Users/HCI-Beast1/anaconda3/envs/vitpose_test1/python.exe e:/Hi5-data/mmcv/ViTPose/demo/top_down_img_demo.py --img-root E:\Hi5-data\mmcv\ViTPose\tests\data\coco\ --json-file E:\Hi5-data\mmcv\ViTPose\tests\data\coco\test_coco.json --show --out-img-root E:\Hi5-data\output_imgs\not_hand\ E:\Hi5-data\mmcv\ViTPose\configs\body\2d_kpt_sview_rgb_img\topdown_heatmap\coco\hrnet_w48_coco_256x192_udp.py https://download.openmmlab.com/mmpose/top_down/hrnet/hrnet_w48_coco_256x192-b9e0b3ab_20200708.pth
+apex is not installed
+apex is not installed
+apex is not installed
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+load checkpoint from http path: https://download.openmmlab.com/mmpose/top_down/hrnet/hrnet_w48_coco_256x192-b9e0b3ab_20200708.pth
+(vitpose_test1) PS E:\Hi5-data> 

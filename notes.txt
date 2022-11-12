@@ -11,3 +11,31 @@ creating index...
 index created!
 load checkpoint from http path: https://download.openmmlab.com/mmpose/top_down/hrnet/hrnet_w48_coco_256x192-b9e0b3ab_20200708.pth
 (vitpose_test1) PS E:\Hi5-data> 
+
+training on Hi5 Data: 
+usage: train.py [-h] [--work-dir WORK_DIR] [--resume-from RESUME_FROM] [--no-validate] 
+[--gpus GPUS | --gpu-ids GPU_IDS [GPU_IDS ...] | --gpu-id GPU_ID] [--seed SEED] [--deterministic] 
+[--cfg-options CFG_OPTIONS [CFG_OPTIONS ...]] [--launcher {none,pytorch,slurm,mpi}] 
+[--local_rank LOCAL_RANK] [--autoscale-lr] config
+train.py: error: the following arguments are required: config
+
+WORK_DIR
+E:\Hi5-data\ViTPose\temp_data\work_dir\
+
+GPUS 
+1
+
+SEED 
+0
+
+config
+E:\Hi5-data\ViTPose\temp_scripts\hi510k.py
+
+
+# for single machine
+bash tools/dist_train.sh <Config PATH> <NUM GPUs> --cfg-options model.pretrained=<Pretrained PATH> --seed 0
+
+
+Succesful run on onehand10k
+
+& C:/Users/HCI-Beast1/anaconda3/envs/vitpose_test1/python.exe e:/Hi5-data/mmcv/ViTPose/tools/train.py E:\Hi5-data\mmcv\ViTPose\configs\hand\2d_kpt_sview_rgb_img\deeppose\onehand10k\res50_onehand10k_256x256.py

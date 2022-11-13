@@ -39,3 +39,24 @@ bash tools/dist_train.sh <Config PATH> <NUM GPUs> --cfg-options model.pretrained
 Succesful run on onehand10k
 
 & C:/Users/HCI-Beast1/anaconda3/envs/vitpose_test1/python.exe e:/Hi5-data/mmcv/ViTPose/tools/train.py E:\Hi5-data\mmcv\ViTPose\configs\hand\2d_kpt_sview_rgb_img\deeppose\onehand10k\res50_onehand10k_256x256.py
+
+Onehand10k on Onehand10k
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/topdown_heatmap/onehand10k/res50_onehand10k_256x256.py https://download.openmmlab.com/mmpose/top_down/resnet/res50_onehand10k_256x256-e67998f6_20200813.pth --img-root tests/data/onehand10k/ --json-file tests/data/onehand10k/test_onehand10k.json --out-img-root E:\Hi5-data\output_imgs
+
+
+Hi53kTest on Onehand10k train
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/topdown_heatmap/onehand10k/res50_onehand10k_256x256.py https://download.openmmlab.com/mmpose/top_down/resnet/res50_onehand10k_256x256-e67998f6_20200813.pth --img-root E:/Hi5-data/test3k_blur/ --json-file E:/Hi5-data/ViTPose/temp_data/person_keypoints_test3k.json --out-img-root E:/Hi5-data/output_imgs/hi510k_trained_on_onehand10k
+
+
+Hi510K train.py
+usage: train.py [-h] [--work-dir WORK_DIR] [--resume-from RESUME_FROM] 
+[--no-validate] [--gpus GPUS | --gpu-ids GPU_IDS [GPU_IDS ...] | --gpu-id GPU_ID] 
+[--seed SEED] [--deterministic] [--cfg-options CFG_OPTIONS [CFG_OPTIONS ...]] 
+[--launcher {none,pytorch,slurm,mpi}] [--local_rank LOCAL_RANK] [--autoscale-lr] 
+config
+
+config:
+configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py
+--gpus 1
+--seed 0 
+--cfg-options model.pretrained=temp_data/pretrained/vit_base/mae_pretrain_vit_base.pth

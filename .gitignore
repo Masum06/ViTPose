@@ -20,7 +20,10 @@ parts/
 sdist/
 var/
 wheels/
+demo/
+mmpose/.mim/
 share/python-wheels/
+work_dirs/
 *.egg-info/
 .installed.cfg
 *.egg

@@ -13,7 +13,7 @@ from .face import (Face300WDataset, FaceAFLWDataset, FaceCocoWholeBodyDataset,
 from .fashion import DeepFashionDataset
 from .hand import (FreiHandDataset, HandCocoWholeBodyDataset,
                    InterHand2DDataset, InterHand3DDataset, OneHand10KDataset,
-                   PanopticDataset)
+                   PanopticDataset, Hi510KDataset)
 from .mesh import (MeshAdversarialDataset, MeshH36MDataset, MeshMixDataset,
                    MoshDataset)
 from .top_down import (TopDownAicDataset, TopDownCocoDataset,
@@ -41,5 +41,5 @@ __all__ = [
     'AnimalFlyDataset', 'AnimalLocustDataset', 'AnimalZebraDataset',
     'AnimalATRWDataset', 'AnimalPoseDataset', 'TopDownH36MDataset',
     'TopDownHalpeDataset', 'TopDownPoseTrack18VideoDataset',
-    'Body3DMviewDirectPanopticDataset'
+    'Body3DMviewDirectPanopticDataset', 'Hi510KDataset',
 ]

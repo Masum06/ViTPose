@@ -1,0 +1,10 @@
+name: vitpose_test3
+channels:
+  - defaults
+dependencies:
+  - python
+  - torchaudio
+  - torchvision
+  - pytorch-cuda=11.7
+  - pytorch
+prefix: C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3

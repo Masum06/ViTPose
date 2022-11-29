@@ -60,3 +60,6 @@ configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py
 --gpus 1
 --seed 0 
 --cfg-options model.pretrained=temp_data/pretrained/vit_base/mae_pretrain_vit_base.pth
+
+
+testing line to see if commiting works

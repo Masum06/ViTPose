@@ -1,0 +1,91 @@
+ERROR 1:
+config:
+configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py
+--gpus 1
+--seed 0 
+--cfg-options model.pretrained=temp_data/pretrained/vit_base/mae_pretrain_vit_base.pth
+
+Traceback (most recent call last):
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\utils\registry.py", line 52, in build_from_cfg
+    return obj_cls(**args)
+  File "e:\hi5-data\vitpose\mmpose\models\detectors\top_down.py", line 70, in __init__
+    self.init_weights(pretrained=pretrained)
+  File "e:\hi5-data\vitpose\mmpose\models\detectors\top_down.py", line 84, in init_weights
+    self.backbone.init_weights(pretrained)
+  File "e:\hi5-data\vitpose\mmpose\models\backbones\resnet.py", line 645, in init_weights
+    super().init_weights(pretrained)
+  File "e:\hi5-data\vitpose\mmpose\models\backbones\base_backbone.py", line 28, in init_weights
+    load_checkpoint(self, pretrained, strict=False, logger=logger, patch_padding=patch_padding)
+  File "e:\hi5-data\vitpose\mmcv_custom\checkpoint.py", line 360, in load_checkpoint
+    current_size = model.patch_embed.proj.weight.shape[2:]
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\module.py", line 1265, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'ResNet' object has no attribute 'patch_embed'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Hi5-data\ViTPose\tools\train.py", line 195, in <module>
+    main()
+  File "E:\Hi5-data\ViTPose\tools\train.py", line 169, in main
+    model = build_posenet(cfg.model)
+  File "e:\hi5-data\vitpose\mmpose\models\builder.py", line 39, in build_posenet
+    return POSENETS.build(cfg)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\utils\registry.py", line 215, in build
+    return self.build_func(*args, **kwargs, registry=self)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\cnn\builder.py", line 27, in build_model_from_cfg
+    return build_from_cfg(cfg, registry, default_args)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\utils\registry.py", line 55, in build_from_cfg
+    raise type(e)(f'{obj_cls.__name__}: {e}')
+AttributeError: TopDown: 'ResNet' object has no attribute 'patch_embed'
+(vitpose_test3) PS E:\Hi5-data\ViTPose> 
+
+error goes away when not using pretrained path:
+--cfg-options model.pretrained=temp_data/pretrained/vit_base/mae_pretrain_vit_base.pth
+
+
+Error 2:
+Traceback (most recent call last):
+  File "E:\Hi5-data\ViTPose\tools\train.py", line 195, in <module>
+    main()
+  File "E:\Hi5-data\ViTPose\tools\train.py", line 184, in main
+    train_model(
+  File "e:\hi5-data\vitpose\mmpose\apis\train.py", line 200, in train_model
+    runner.run(data_loaders, cfg.workflow, cfg.total_epochs)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\runner\epoch_based_runner.py", line 127, in run
+    epoch_runner(data_loaders[i], **kwargs)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\runner\epoch_based_runner.py", line 50, in train
+    self.run_iter(data_batch, train_mode=True, **kwargs)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\runner\epoch_based_runner.py", line 29, in run_iter
+    outputs = self.model.train_step(data_batch, self.optimizer,
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\parallel\data_parallel.py", line 75, in train_step
+    return self.module.train_step(*inputs[0], **kwargs[0])
+  File "e:\hi5-data\vitpose\mmpose\models\detectors\base.py", line 104, in train_step
+    losses = self.forward(**data_batch)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\mmcv\runner\fp16_utils.py", line 110, in new_func
+    return old_func(*args, **kwargs)
+  File "e:\hi5-data\vitpose\mmpose\models\detectors\top_down.py", line 138, in forward
+    return self.forward_train(img, target, target_weight, img_metas,
+  File "e:\hi5-data\vitpose\mmpose\models\detectors\top_down.py", line 145, in forward_train
+    output = self.backbone(img)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\module.py", line 1190, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "e:\hi5-data\vitpose\mmpose\models\backbones\resnet.py", line 672, in forward
+    x = res_layer(x)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\module.py", line 1190, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\container.py", line 204, in forward
+    input = module(input)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\module.py", line 1190, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "e:\hi5-data\vitpose\mmpose\models\backbones\resnet.py", line 268, in forward
+    out = _inner_forward(x)
+  File "e:\hi5-data\vitpose\mmpose\models\backbones\resnet.py", line 255, in _inner_forward
+    out = self.conv3(out)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\module.py", line 1190, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\conv.py", line 463, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\conv.py", line 459, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 810.00 MiB (GPU 0; 24.00 GiB total capacity; 22.54 GiB already allocated; 0 bytes free; 22.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

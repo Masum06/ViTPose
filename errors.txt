@@ -45,6 +45,11 @@ error goes away when not using pretrained path:
 
 
 Error 2:
+config:
+configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py
+--gpus 1
+--seed 0 
+
 Traceback (most recent call last):
   File "E:\Hi5-data\ViTPose\tools\train.py", line 195, in <module>
     main()
@@ -89,3 +94,103 @@ Traceback (most recent call last):
   File "C:\Users\HCI-Beast1\anaconda3\envs\vitpose_test3\lib\site-packages\torch\nn\modules\conv.py", line 459, in _conv_forward
     return F.conv2d(input, weight, bias, self.stride,
 torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 810.00 MiB (GPU 0; 24.00 GiB total capacity; 22.54 GiB already allocated; 0 bytes free; 22.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+
+Errors on two GPUs: 
+
+Error: ResNet has no patch_embed
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py 2 --cfg-options model.pretrained=/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/mae_pretrain_vit_base.pth --seed 0
+AttributeError: TopDown: 'ResNet' object has no attribute 'patch_embed'
+(same as above)
+
+
+Error 2: 
+Original Traceback (most recent call last):
+  File "/home/hci-monster-linux/.local/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 302, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/hci-monster-linux/.local/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 58, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/hci-monster-linux/.local/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 58, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/mmpose/datasets/datasets/base/kpt_2d_sview_rgb_img_top_down_dataset.py", line 274, in __getitem__
+    return self.pipeline(results)
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/mmpose/datasets/pipelines/shared_transform.py", line 99, in __call__
+    data = t(data)
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/mmpose/datasets/pipelines/loading.py", line 61, in __call__
+    results['img'] = self._read_image(image_file)
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/mmpose/datasets/pipelines/loading.py", line 40, in _read_image
+    img_bytes = self.file_client.get(path)
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/mmcv/mmcv/fileio/file_client.py", line 306, in get
+    return self.client.get(filepath)
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/mmcv/mmcv/fileio/file_client.py", line 184, in get
+    with open(filepath, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/train10k_blur/000000178284.png'
+
+============================================================
+tools/train.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2022-12-01_14:03:45
+  host      : hcimonsterlinux
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 8130)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2022-12-01_14:03:45
+  host      : hcimonsterlinux
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 8129)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+
+**solved changed path inm hi510k config file**
+
+
+Error 3:
+Traceback (most recent call last):
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/tools/train.py", line 195, in <module>
+    main()
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/tools/train.py", line 184, in main
+    train_model(
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/mmpose/apis/train.py", line 200, in train_model
+    runner.run(data_loaders, cfg.workflow, cfg.total_epochs)
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/mmcv/mmcv/runner/epoch_based_runner.py", line 127, in run
+    epoch_runner(data_loaders[i], **kwargs)
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/mmcv/mmcv/runner/epoch_based_runner.py", line 50, in train
+    self.run_iter(data_batch, train_mode=True, **kwargs)
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/mmcv/mmcv/runner/epoch_based_runner.py", line 29, in run_iter
+    outputs = self.model.train_step(data_batch, self.optimizer,
+  File "/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/mmcv/mmcv/parallel/distributed.py", line 49, in train_step
+    self._sync_params()
+  File "/home/hci-monster-linux/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1265, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'MMDistributedDataParallel' object has no attribute '_sync_params'
+
+created new conda environment with torch==1.10.1 vitpose8
+conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 -c pytorch
+git checkout v1.3.9
+pip install -e .
+pip install -v -e .
+pip install timm==0.4.9 einops
+ran: bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py 2 --seed 0
+
+Got error:
+ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+
+pip install --upgrade numpy
+
+Error 4:
+RuntimeError: CUDA out of memory. Tried to allocate 810.00 MiB (GPU 0; 23.69 GiB total capacity; 20.65 GiB already allocated; 318.56 MiB free; 21.08 GiB reserved in total by PyTorch) 
+If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+
+tried reducing samples per GPU in config from 64 train to 32 and 32 val/test to 16
+same out of memory error
+
+reduced samples per GPU in config from train=32 to train=16 val/test=8 
+

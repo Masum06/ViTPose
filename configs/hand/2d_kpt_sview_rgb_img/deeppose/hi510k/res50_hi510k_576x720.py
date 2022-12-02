@@ -102,13 +102,17 @@ val_pipeline = [
 test_pipeline = val_pipeline
 
 data_root = 'data/hi510k'
-train_img_root = 'E:/Hi5-data/train10k_blur'
-test_img_root = 'E:/Hi5-data/test3k_blur'
+# train_img_root = 'E:/Hi5-data/train10k_blur'
+# test_img_root = 'E:/Hi5-data/test3k_blur'
+#HCI Beast:
+train_img_root = '../data/train10k_blur'
+test_img_root = '../data/test3k_blur'
+
 data = dict(
-    samples_per_gpu=64,
+    samples_per_gpu=16, #reduced from 64
     workers_per_gpu=2,
-    val_dataloader=dict(samples_per_gpu=32),
-    test_dataloader=dict(samples_per_gpu=32),
+    val_dataloader=dict(samples_per_gpu=8), #reduced from 32
+    test_dataloader=dict(samples_per_gpu=8), #reduced from 32
     train=dict(
         type='Hi510KDataset',
         ann_file=f'{data_root}/annotations/person_keypoints_train10k.json',

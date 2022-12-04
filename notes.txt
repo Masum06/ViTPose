@@ -89,3 +89,62 @@ GPUS: 2
 
 Hi53K on Hi510K train with image output
 demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/test3k_blur --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/test3k_blur/person_keypoints_test3k.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/Hi53K_test
+
+
+
+Real Hand Photos on Hi510k
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720/best_AUC_epoch_210.pth --img-root tests/data/onehand10k/ --json-file tests/data/onehand10k/test_onehand10k.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/real_photos_testing
+
+Resized Real Hand Photos on Hi510k
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/real_photos_testing/resized --json-file tests/data/onehand10k/test_onehand10k.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/real_photos_testing/resized
+
+
+Train on hi510k with pretrained onehand10k 
+bash tools/dist_train.sh <Config PATH> <NUM GPUs> --cfg-options model.pretrained=<Pretrained PATH> --seed 0
+
+config 
+configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py
+
+GPUS
+2
+
+pretrained:
+--cfg-options model.pretrained=https://download.openmmlab.com/mmpose/top_down/resnet/res50_onehand10k_256x256-e67998f6_20200813.pth
+
+--seed 0
+
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py 2 --cfg-options model.pretrained=https://download.openmmlab.com/mmpose/top_down/resnet/res50_onehand10k_256x256-e67998f6_20200813.pth --seed 0 --work-dir work_dirs/res50_hi510k_576x720_with_onehand_pretrain
+
+
+Testing:
+bash tools/dist_test.sh <Config PATH> <Checkpoint PATH> <NUM GPUs>
+
+Test Hi5+Onehand on Hi510K
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720_with_onehand_pretrain/best_AUC_epoch_210.pth 2
+
+Test Hi5+Onehand on Onehand10K
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720_with_onehand_pretrain/best_AUC_epoch_210.pth 2
+
+
+Demo Hi5+Onehand on Onehand10k
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720_with_onehand_pretrain/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/hi5_and_onehand
+
+
+
+Demo Hi5+Onehand on Hi5
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720_with_onehand_pretrain/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/test3k_blur --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/data/hi510k/annotations/person_keypoints_test3k.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi53k/hi5_and_onehand
+
+
+Demo Hi5 on Onehand:
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/hi5_only
+
+
+https://download.openmmlab.com/mmpose/top_down/resnet/res50_onehand10k_256x256-e67998f6_20200813.pth
+Demo Onehand on Hi5
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/deeppose_onehand/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/test3k_blur --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/data/hi510k/annotations/person_keypoints_test3k.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi53k/onehand_only
+
+
+
+Demo Onehand on OneHand
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/deeppose_onehand/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/onehand_only
+

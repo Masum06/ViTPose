@@ -101,12 +101,14 @@ val_pipeline = [
 
 test_pipeline = val_pipeline
 
-data_root = 'data/onehand10k'
+# data_root = 'data/onehand10k'
+data_root = '/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k'
 data = dict(
-    samples_per_gpu=64,
+    # samples_per_gpu=64,
+    samples_per_gpu=16, #reduced from 64
     workers_per_gpu=2,
-    val_dataloader=dict(samples_per_gpu=32),
-    test_dataloader=dict(samples_per_gpu=32),
+    val_dataloader=dict(samples_per_gpu=8), #reduced from 32
+    test_dataloader=dict(samples_per_gpu=8), #reduced from 32
     train=dict(
         type='OneHand10KDataset',
         ann_file=f'{data_root}/annotations/onehand10k_train.json',

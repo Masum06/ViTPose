@@ -1,4 +1,4 @@
-'''
+"""
     for clarification: 
         The lowest number label is the base of the finger
         The highest number label is the tip of the finger
@@ -7,8 +7,7 @@
     JSON format:
         X,Y, 2
         Wrist, IndexA-D, MiddleA-D, RingA-D, PinkyA-D, ThumbA-D
-'''
-
+"""
 dataset_info = dict(
     dataset_name='Hi510KDataset',
     paper_info=dict(),

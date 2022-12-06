@@ -20,30 +20,6 @@ class Hi510KDataset(Kpt2dSviewRgbImgTopDownDataset):
     The dataset loads raw features and apply specified transforms
     to return a dict containing the image tensors and other information.
 
-    Hi510K keypoint indexes:
-
-        0: 'wrist',
-        1: 'indexA',
-        2: 'indexB',
-        3: 'indexC',
-        4: 'indexD',
-        5: 'middleA',
-        6: 'middleB',
-        7: 'middleC',
-        8: 'middleD',
-        9: 'ringA',
-        10: 'ringB',
-        11: 'ringC',
-        12: 'ringD',
-        13: 'pinkyA',
-        14: 'pinkyB',
-        15: 'pinkyC',
-        16: 'pinkyD',
-        17: 'thumbA',
-        18: 'thumbB',
-        19: 'thumbC',
-        20: 'thumbD'
-
     Args:
         ann_file (str): Path to the annotation file.
         img_prefix (str): Path to a directory where images are held.

@@ -9,6 +9,9 @@ from mmpose.apis import (inference_top_down_pose_model, init_pose_model,
                          vis_pose_result)
 from mmpose.datasets import DatasetInfo
 
+#added numpy 
+import numpy as np
+
 
 def main():
     """Visualize the demo images.
@@ -106,11 +109,34 @@ def main():
             return_heatmap=return_heatmap,
             outputs=output_layer_names)
 
+        #swap pose_results with gold annotation
+        # print(pose_results)
+        anns = coco.loadAnns(ann_ids)
+        anns_filtered = []
+        for ann in anns:
+            ann_bbox_keypoints = {}
+            ann_bbox_keypoints['bbox'] = np.array(ann['bbox'])
+            ann_bbox_keypoints['keypoints'] = np.array(ann['keypoints'], dtype=np.float32).reshape(-1, 3)
+            f_name = ann['image_id']
+            # print(f_name)
+            anns_filtered.append(ann_bbox_keypoints)
+
+        # print(f_name)
+        # break
+        # print(anns_filtered)
+        pose_results = anns_filtered
+        # print(pose_results)
+        # break
+        
+        # f_name = anns['image_id']
+
         if args.out_img_root == '':
             out_file = None
         else:
             os.makedirs(args.out_img_root, exist_ok=True)
-            out_file = os.path.join(args.out_img_root, f'vis_{i}.jpg')
+            # out_file = os.path.join(args.out_img_root, f'vis_{i}.jpg')
+            out_file = os.path.join(args.out_img_root, f'vis_{f_name}.jpg')
+
 
         vis_pose_result(
             pose_model,

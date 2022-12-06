@@ -148,3 +148,153 @@ python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/oneh
 Demo Onehand on OneHand
 python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/deeppose_onehand/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/onehand_only
 
+
+bash tools/dist_test.sh <Config PATH> <Checkpoint PATH> <NUM GPUs>
+
+Test onehand model on hi5 
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/deeppose_onehand/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth 2
+
+test hi5 on hi5 
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720/best_AUC_epoch_210.pth 2
+
+
+Test onehand on onehand
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/deeppose_onehand/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth 2
+
+Test hi5 on onehand
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720/best_AUC_epoch_210.pth 2
+
+Test hi5+onehand on onehand 
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi510k_576x720_with_onehand_pretrain/best_AUC_epoch_210.pth 2
+
+
+
+Train hi5+onehand on onehand for deeppose and not heatmap like a dumbass (this hi5 does not switch the fingers to the order of onehand's json)
+bash tools/dist_train.sh <Config PATH> <NUM GPUs> --cfg-options model.pretrained=<Pretrained PATH> --seed 0
+
+Config Path:
+configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py
+
+GPUs
+2
+
+Pretrained Path (onehand10k deeppose path)
+/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/deeppose_onehand/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth
+
+work dirs:
+work_dirs/res50_hi5_and_onehand_deeppose
+
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py 2 --cfg-options load_from=/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/deeppose_onehand/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth --seed 0 --work-dir work_dirs/res50_hi5_and_onehand_deeppose
+
+
+
+Testing:
+bash tools/dist_test.sh <Config PATH> <Checkpoint PATH> <NUM GPUs>
+Testing w/ onehand config
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi5_and_onehand_deeppose/best_AUC_epoch_210.pth 2
+
+
+Testing w/ hi5 config
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_576x720.py work_dirs/res50_hi5_and_onehand_deeppose/best_AUC_epoch_210.pth 2
+
+work_dirs/res50_hi5_and_onehand_deeppose/best_AUC_epoch_210.pth
+
+
+Run Instructions:
+bash tools/dist_train.sh <Config PATH> <NUM GPUs> --cfg-options model.pretrained=<Pretrained PATH> --seed 0
+
+
+To train with the pretrained onehand10K weights:
+bash tools/dist_train.sh 
+
+Configs:
+configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py
+
+GPUs:
+2 
+
+CFG Options
+--cfg-options load_from=/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/pretrained/deeppose_onehand/deeppose_res50_onehand10k_256x256-cbddf43a_20210330.pth 
+
+Seed:
+--seed 0 
+
+Set new work directory:
+--work-dir work_dirs/####name_here###
+
+
+To train just Hi5:
+bash tools/dist_train.sh 
+
+configs:
+configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py
+
+GPUs:
+2
+
+Seed:
+ --seed 0
+
+Set new work directory
+
+--work-dir work_dirs/####name_here###
+
+--work-dir work_dirs/res50_hi550k_256x256
+
+
+
+
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py 2 --seed 0 --work-dir work_dirs/res50_hi5_50k_256x256_fixed_data
+
+
+bash tools/dist_test.sh <Config PATH> <Checkpoint PATH> <NUM GPUs>
+
+
+work_dirs/res50_hi550k_256x256_updated/best_AUC_epoch_140.pth
+configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py
+
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi550k_256x256_updated/best_AUC_epoch_140.pth 2
+
+configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py
+
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi550k_256x256_updated/best_AUC_epoch_140.pth 2
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi550k_256x256_updated/best_AUC_epoch_140.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/hi5_50k
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi550k_256x256_updated/best_AUC_epoch_140.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/test3k_blur --json-file data/hi510k/annotations/person_keypoints_test3k.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi53k/gold_annotations
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi550k_256x256_updated/best_AUC_epoch_140.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_50K/50K_Dataset/data/test6k --json-file data/hi550k/annotations/hi550k_test6k.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_6k/gold_annotations
+
+
+data/hi550k/annotations/hi550k_test6k.json
+
+
+Train onehand:
+bash tools/dist_train.sh <Config PATH> <NUM GPUs> --seed 0
+
+configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py
+2
+--seed 0
+
+
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py 2 --seed 0
+
+
+
+
+
+
+ViTPose/work_dirs/res50_hi550k_256x256/best_AUC_epoch_10.pth
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi550k_256x256/best_AUC_epoch_10.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/onehand10k_epoch10_1
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi550k_256x256/best_AUC_epoch_10.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/test3k_blur --json-file data/hi510k/annotations/person_keypoints_test3k.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi53k/onehand_epoch10
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi550k_256x256/best_AUC_epoch_10.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/gold_annotations_new_bbox

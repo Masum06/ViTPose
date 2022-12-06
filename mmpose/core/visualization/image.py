@@ -10,6 +10,9 @@ from matplotlib import pyplot as plt
 from mmcv.utils.misc import deprecated_api_warning
 from mmcv.visualization.color import color_val
 
+#added this 
+import sys
+
 try:
     import trimesh
     has_trimesh = True
@@ -64,14 +67,19 @@ def imshow_bboxes(img,
     colors = [mmcv.color_val(c) for c in colors]
     assert len(bboxes) == len(colors)
 
-    img = mmcv.imshow_bboxes(
-        img,
-        bboxes,
-        colors,
-        top_k=-1,
-        thickness=thickness,
-        show=False,
-        out_file=None)
+
+    # print('bboxes', bboxes)
+    # print(bboxes[0][0][0])
+    # sys.exit()
+    # img = mmcv.imshow_bboxes(
+    #     img,
+    #     bboxes,
+    #     colors,
+    #     top_k=-1,
+    #     thickness=thickness,
+    #     show=False,
+    #     out_file=None)
+    img = cv2.rectangle(img, (int(bboxes[0][0][0]), int(bboxes[0][0][1])), (int(bboxes[0][0][0])+int(bboxes[0][0][2]), int(bboxes[0][0][1]+bboxes[0][0][3])), (255, 0, 0), 2)
 
     if labels is not None:
         if not isinstance(labels, list):
@@ -134,8 +142,12 @@ def imshow_keypoints(img,
     img_h, img_w, _ = img.shape
 
     for kpts in pose_result:
-
+        # print("keypts", kpts)
         kpts = np.array(kpts, copy=False)
+        # print('len(kpts)', len(kpts))
+        # print('len(pose_kpt_color)', len(pose_kpt_color))
+        # if len(kpts) == len(pose_kpt_color)*3:
+        #     kpts = kpts.reshape(-1, 3)
 
         # draw each point on image
         if pose_kpt_color is not None:

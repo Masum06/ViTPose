@@ -111,20 +111,20 @@ def main():
 
         #swap pose_results with gold annotation
         # print(pose_results)
-        anns = coco.loadAnns(ann_ids)
-        anns_filtered = []
-        for ann in anns:
-            ann_bbox_keypoints = {}
-            ann_bbox_keypoints['bbox'] = np.array(ann['bbox'])
-            ann_bbox_keypoints['keypoints'] = np.array(ann['keypoints'], dtype=np.float32).reshape(-1, 3)
-            f_name = ann['image_id']
+        #anns = coco.loadAnns(ann_ids)
+        #anns_filtered = []
+        #for ann in anns:
+        #    ann_bbox_keypoints = {}
+        #    ann_bbox_keypoints['bbox'] = np.array(ann['bbox'])
+        #    ann_bbox_keypoints['keypoints'] = np.array(ann['keypoints'], dtype=np.float32).reshape(-1, 3)
+         #   f_name = ann['image_id']
             # print(f_name)
-            anns_filtered.append(ann_bbox_keypoints)
+         #   anns_filtered.append(ann_bbox_keypoints)
 
         # print(f_name)
         # break
         # print(anns_filtered)
-        pose_results = anns_filtered
+        #pose_results = anns_filtered
         # print(pose_results)
         # break
         
@@ -134,8 +134,8 @@ def main():
             out_file = None
         else:
             os.makedirs(args.out_img_root, exist_ok=True)
-            # out_file = os.path.join(args.out_img_root, f'vis_{i}.jpg')
-            out_file = os.path.join(args.out_img_root, f'vis_{f_name}.jpg')
+            out_file = os.path.join(args.out_img_root, f'vis_{i}.jpg')
+            #out_file = os.path.join(args.out_img_root, f'vis_{f_name}.jpg')
 
 
         vis_pose_result(

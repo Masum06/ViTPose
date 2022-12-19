@@ -282,7 +282,7 @@ configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.p
 --seed 0
 
 
-bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py 2 --seed 0
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py 2 --seed 0 --work-dir work_dirs/res50_onehand10k_256x256_121422
 
 
 

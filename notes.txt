@@ -285,6 +285,7 @@ configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.p
 bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py 2 --seed 0 --work-dir work_dirs/res50_onehand10k_256x256_121422
 
 
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py 2 --seed 0 --work-dir work_dirs/res50_hi5_40k_256x256_122222
 
 
 
@@ -298,3 +299,104 @@ python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi51
 
 
 python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi550k_256x256/best_AUC_epoch_10.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/gold_annotations_new_bbox
+
+
+python demo/top_down_img_demo.py <CONFIG FILE> <TRAINED MODEL (.pth)> --img-root <root> --json-file <file path> --out-img-root <root> --thickness <> --radius <>
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi550k_256x256/best_AUC_epoch_10.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_40k/train --json-file data/hi5_40k/hi5_40k_train.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_40k/visualized_gold/train 
+
+
+
+
+
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py 2 --seed 0 --work-dir work_dirs/res50_hi5_40k_256x256_011223
+
+
+
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py 2 --seed 0 --work-dir work_dirs/res50_hi5_40k_256x256_01_12_23
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi550k_256x256/best_AUC_epoch_10.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_40k/test --json-file data/hi5_40k/annotations/hi5_40k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_40k/visualized_gold/test
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi5_40k_256x256_011223/best_AUC_epoch_100.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_40k/test --json-file data/hi5_40k/annotations/hi5_40k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_40k/hi5_40k_100_epoch/test 
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi5_40k_256x256_011223/best_AUC_epoch_100.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/hi5_40k_100_epoch
+
+
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi5_40k_256x256_011223/best_AUC_epoch_100.pth 2
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/testing_broken_visualizer
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/masked_testing/image_masked --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/masked_testing/image_masked/onehand10k_test_mask.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/masked_testing/output
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/park_demo_vid/Images --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/park_demo_vid/annotations/annotations.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/park_demo_vid/output
+
+
+python demo/top_down_video_demo_full_frame_without_det.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --video-path /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/park_demo_vid/Video/IMG_3367.MOV --out-video-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/park_demo_vid/output/video_demo_v1
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_40k/test --json-file data/hi5_40k/annotations/hi5_40k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_40k/hi5_40k_new_fingers
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/data/coco/images/vid_2_sequence --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/park_demo_vid/annotations/annotations_bboxes.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/park_demo_vid/output/video_demo_bboxes
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_40k/valid --json-file data/hi5_40k/annotations/hi5_40k_valid.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_40k/visualized_gold/valid
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_40k/valid --json-file data/hi5_40k/annotations/hi5_40k_valid.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_40k/visualized_gold/valid
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/annotations/onehand10k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/onehand10k/visualizing_17
+
+
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_40k/test --json-file data/hi5_40k/annotations/hi5_40k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_40k/visualized_gold/test
+
+
+
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py 2 --seed 0 --work-dir work_dirs/res50_hi5_40k_256x256_02_07_23 --resume-from /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi5_40k_256x256_02_07_23/epoch_190.pth
+
+
+
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi510k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi5_40k_256x256_02_07_23/best_AUC_epoch_190.pth 2
+
+
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi5_40k_256x256_02_07_23/best_AUC_epoch_190.pth 2
+
+
+
+
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py work_dirs/res50_hi5_40k_256x256_02_07_23/epoch_200.pth 2
+
+
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi5_28k_256x256_fixed_tips.py 2 --seed 0 --work-dir work_dirs/res50_hi5_28k_256x256_02_12_23
+
+
+bash tools/dist_test.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/onehand10k/res50_onehand10k_256x256.py /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/work_dirs/res50_hi5_28k_256x256_02_12_23/epoch_210.pth 2
+
+python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi5_28k_256x256_fixed_tips.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_28k_fixedtips/train --json-file /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/hi5_28k_fixedtips/annotations/person_keypoints_train.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_28k/gold/train/
+
+
+/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/ViTPose/configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi5_500k_256x256.py
+
+@cengiz, run this:
+bash tools/dist_train.sh configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi5_500k_256x256.py
+ 2 --seed 0 --work-dir work_dirs/res50_hi5_500k_256x256_02_15_23
+
+
+ python demo/top_down_img_demo.py configs/hand/2d_kpt_sview_rgb_img/deeppose/hi510k/res50_hi5_500k_256x256.py work_dirs/res50_hi5_40k_256x256_01_13_23/best_AUC_epoch_210.pth --img-root /media/hci-monster-linux/PARK_HANDS1/Hand\ Dataset/hi5_500k/test --json-file /media/hci-monster-linux/PARK_HANDS1/Hand\ Dataset/hi5_500k/annotations/hi5_500k_test.json --out-img-root /home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/output/out_img/hi5_500k/gold
+
+
+

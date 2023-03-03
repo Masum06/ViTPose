@@ -101,14 +101,15 @@ val_pipeline = [
 
 test_pipeline = val_pipeline
 
-data_root = 'data/hi550k'
+data_root = 'data/hi5_40k'
 #HCI Beast:
 # train_img_root = 'E:/Hi5-data/train10k_blur'
 # test_img_root = 'E:/Hi5-data/test3k_blur'
 #HCI Monster:
-train_img_root = '../data/hi5_50K/50K_Dataset/data/train41k'
-test_img_root = '../data/hi5_50K/50K_Dataset/data/test6k'
-val_img_root = '../data/hi5_50K/50K_Dataset/data/valid10k'
+train_img_root = '../data/hi5_40k/train'
+test_img_root = '../data/hi5_40k/test'
+#val_img_root = '../data/hi5_40k/valid'
+val_img_root = test_img_root
 
 data = dict(
     samples_per_gpu=16, #reduced from 64
@@ -118,21 +119,22 @@ data = dict(
     train=dict(
         type='Hi510KDataset',
         # data/hi5_50K/50K Dataset/data/annotations/
-        ann_file=f'{data_root}/annotations/hi550k_train41k.json',
+        ann_file=f'{data_root}/annotations/hi5_40k_train.json',
         img_prefix=f'{train_img_root}/',
         data_cfg=data_cfg,
         pipeline=train_pipeline,
         dataset_info={{_base_.dataset_info}}),
+    #val is now just the test set instead of its own validation set
     val=dict(
         type='Hi510KDataset',
-        ann_file=f'{data_root}/annotations/hi550k_val10k.json',
+        ann_file=f'{data_root}/annotations/hi5_40k_test.json',
         img_prefix=f'{val_img_root}/',
         data_cfg=data_cfg,
         pipeline=val_pipeline,
         dataset_info={{_base_.dataset_info}}),
     test=dict(
         type='Hi510KDataset',
-        ann_file=f'{data_root}/annotations/hi550k_test6k.json',
+        ann_file=f'{data_root}/annotations/hi5_40k_test.json',
         img_prefix=f'{test_img_root}/',
         data_cfg=data_cfg,
         pipeline=test_pipeline,

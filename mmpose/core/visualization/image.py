@@ -144,8 +144,6 @@ def imshow_keypoints(img,
     for kpts in pose_result:
         # print("keypts", kpts)
         kpts = np.array(kpts, copy=False)
-        # print('len(kpts)', len(kpts))
-        # print('len(pose_kpt_color)', len(pose_kpt_color))
         # if len(kpts) == len(pose_kpt_color)*3:
         #     kpts = kpts.reshape(-1, 3)
 

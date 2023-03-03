@@ -675,7 +675,7 @@ def vis_pose_result(model,
             pose_kpt_color = palette[[16] * 14 + [0] * 26]
 
         elif dataset in ('OneHand10KDataset', 'FreiHandDataset',
-                         'PanopticDataset'):
+                         'PanopticDataset', 'Hi510KDataset'):
             skeleton = [[0, 1], [1, 2], [2, 3], [3, 4], [0, 5], [5, 6], [6, 7],
                         [7, 8], [0, 9], [9, 10], [10, 11], [11, 12], [0, 13],
                         [13, 14], [14, 15], [15, 16], [0, 17], [17, 18],

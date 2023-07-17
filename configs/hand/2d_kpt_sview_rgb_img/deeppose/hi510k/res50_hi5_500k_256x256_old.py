@@ -18,7 +18,7 @@ lr_config = dict(
     warmup_iters=500,
     warmup_ratio=0.001,
     step=[170, 200])
-total_epochs = 400 #Total epochs
+total_epochs = 210
 log_config = dict(
     interval=10,
     hooks=[
@@ -43,8 +43,7 @@ channel_cfg = dict(
 # model settings
 model = dict(
     type='TopDown',
-    # C:\Users\roc-hci\Downloads\resnet50-19c8e357.pth
-    pretrained='resnet50-19c8e357.pth',
+    pretrained='torchvision://resnet50',
     backbone=dict(type='ResNet', depth=50, num_stages=4, out_indices=(3, )),
     neck=dict(type='GlobalAveragePooling'),
     keypoint_head=dict(
@@ -107,36 +106,27 @@ test_pipeline = val_pipeline
 
 
 #TODO: @cengiz, change this to the correct path
-# data_root = '/media/hci-monster-linux/PARK_HANDS1/Hand Dataset/hi5_500k' #annotations folder (should be like: /home/hci-monster-linux/Park_Hands/HandDatsetor something) the Annotations/file is below in ann_file
-# train_img_root = '/media/hci-monster-linux/PARK_HANDS1/Hand Dataset/hi5_500k/train' #image folder (should be like: /home/hci-monster-linux/Park_Hands/HandDatset/Images/400k/train or something)
+data_root = '/media/hci-monster-linux/PARK_HANDS1/Hand Dataset/hi5_500k' #annotations folder (should be like: /home/hci-monster-linux/Park_Hands/HandDatsetor something) the Annotations/file is below in ann_file
+train_img_root = '/media/hci-monster-linux/PARK_HANDS1/Hand Dataset/hi5_500k/train' #image folder (should be like: /home/hci-monster-linux/Park_Hands/HandDatset/Images/400k/train or something)
 
 """
 Changed val/test data to OneHand10K dataw
 """
-# "F:\Hand Dataset\final_split_5_19\person_keypoints_test_crop.json"
-data_root = 'F:/Hand_Dataset/final_split_5_19'
-train_img_root = 'F:/Hand_Dataset/final_split_5_19/train'
-test_img_root = 'F:/Hand_Dataset/final_split_5_19/test'
 
-
-# F:\OneHand10K\onehand10k
-# one_hand_data_root = 'F:/OneHand10K/onehand10k'
-# test_img_root = 'F:/OneHand10K/onehand10k/Test/source'
+one_hand_data_root = '/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k'
+test_img_root = '/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/Test/source'
 val_img_root = test_img_root
 
 
-# one_hand_data_root = '/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k'
-# test_img_root = '/home/hci-monster-linux/Documents/Hi5/alex_folder/Hi5-data/data/onehand10k/Test/source'
-# val_img_root = test_img_root
-
 
 data = dict(
-    samples_per_gpu=64, #reduced from 64
+    samples_per_gpu=16, #reduced from 64
     workers_per_gpu=2,
-    val_dataloader=dict(samples_per_gpu=32), #reduced from 32
-    test_dataloader=dict(samples_per_gpu=32), #reduced from 32
+    val_dataloader=dict(samples_per_gpu=8), #reduced from 32
+    test_dataloader=dict(samples_per_gpu=8), #reduced from 32
     train=dict(
         type='Hi510KDataset',
+        # data/hi5_50K/50K Dataset/data/annotations/
         ann_file=f'{data_root}/annotations/hi5_500k_train.json', #TODO: @cengiz, change this to the correct path Annotations/500K/train_json
         img_prefix=f'{train_img_root}/',
         data_cfg=data_cfg,
@@ -144,15 +134,15 @@ data = dict(
         dataset_info={{_base_.dataset_info}}),
     #val is now just the test set instead of its own validation set
     val=dict(
-        type='Hi510KDataset',
-        ann_file=f'{data_root}/annotations/hi5_500k_test.json', #onehand test set 
+        type='OneHand10KDataset',
+        ann_file=f'{one_hand_data_root}/annotations/onehand10k_test.json', #onehand test set 
         img_prefix=f'{val_img_root}/',
         data_cfg=data_cfg,
         pipeline=val_pipeline,
         dataset_info={{_base_.dataset_info}}),
     test=dict(
-        type='Hi510KDataset',
-        ann_file=f'{data_root}/annotations/hi5_500k_test.json', #onehand test set
+        type='OneHand10KDataset',
+        ann_file=f'{one_hand_data_root}/annotations/onehand10k_test.json', #onehand test set
         img_prefix=f'{test_img_root}/',
         data_cfg=data_cfg,
         pipeline=test_pipeline,
